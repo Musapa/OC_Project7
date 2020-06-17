@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: spring-boot-skeleton
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: ajago
+Implementation-Vendor-Id: net.guides.springboothelloworld
+Build-Jdk: 1.8.0_251
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/spring-boot-skeleton
+Created-By: Maven Integration for Eclipse
+
