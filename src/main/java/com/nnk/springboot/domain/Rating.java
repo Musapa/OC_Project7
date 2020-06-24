@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Table(name = "rating")
 public class Rating {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String moodysRating;
