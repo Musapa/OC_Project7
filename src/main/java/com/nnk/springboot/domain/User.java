@@ -1,7 +1,13 @@
 package com.nnk.springboot.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "users")
@@ -11,6 +17,7 @@ public class User {
 	private Integer id;
 	@NotBlank(message = "Username is mandatory")
 	private String username;
+	@Length(min = 8, message = "*Your password must have at least 8 characters")
 	@NotBlank(message = "Password is mandatory")
 	private String password;
 	@NotBlank(message = "FullName is mandatory")

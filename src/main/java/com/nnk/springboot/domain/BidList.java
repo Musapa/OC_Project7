@@ -3,8 +3,11 @@ package com.nnk.springboot.domain;
 import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -13,10 +16,13 @@ import java.sql.Timestamp;
 public class BidList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer BidListId;
-	
+	private Integer bidListId;
+	@NotBlank(message = "Account is mandatory")
 	private String account;
+	@NotBlank(message = "Type is mandatory")
 	private String type;
+    @NotNull
+    @DecimalMin("0.01")
 	private Double bidQuantity;
 	private Double askQuantity;
 	private Double bid;
@@ -48,11 +54,11 @@ public class BidList {
 	}
 
 	public Integer getBidListId() {
-		return BidListId;
+		return bidListId;
 	}
 
 	public void setBidListId(Integer bidListId) {
-		BidListId = bidListId;
+		this.bidListId = bidListId;
 	}
 
 	public String getAccount() {
