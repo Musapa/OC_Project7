@@ -20,12 +20,15 @@ public class CurvePoint {
 	private Double value;
 	private Timestamp creationDate;
 
+	public CurvePoint() {
+	}
+	
 	public CurvePoint(Integer id, Double term, Double value) {
 		this.id = id;
 		this.term = term;
 		this.value = value;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}

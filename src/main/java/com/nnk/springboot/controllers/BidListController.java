@@ -47,7 +47,7 @@ public class BidListController {
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         BidList bidList = bidListRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bidList Id:" + id));
-        model.addAttribute("bidList", bidList);
+        model.addAttribute("bidlist", bidList);
         return "bidList/update";
     }
 
