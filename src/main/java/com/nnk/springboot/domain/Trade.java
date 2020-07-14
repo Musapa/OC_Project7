@@ -33,7 +33,10 @@ public class Trade {
 	private String side;
 
 	public Trade() {
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 0cb2d8f0b2606a1b6d4a16a5e441a4f7ce10b444
 	}
 	
 	public Trade(String account, String type) {
