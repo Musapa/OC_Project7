@@ -19,10 +19,7 @@ public class RuleName {
 	private String sqlPart;
 
 	public RuleName() {
-<<<<<<< HEAD
 		
-=======
->>>>>>> 0cb2d8f0b2606a1b6d4a16a5e441a4f7ce10b444
 	}
 	
 	public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
