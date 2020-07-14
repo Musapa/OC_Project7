@@ -18,6 +18,10 @@ public class RuleName {
 	private String sqlStr;
 	private String sqlPart;
 
+	public RuleName() {
+		
+	}
+	
 	public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
 		this.name = name;
 		this.description = description;

@@ -22,7 +22,7 @@ public class CurveController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-    	model.addAttribute("curvepoint", curvePointRepository.findAll());
+    	model.addAttribute("curvePoint", curvePointRepository.findAll());
         return "curvePoint/list";
     }
 
@@ -35,7 +35,7 @@ public class CurveController {
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         if (!result.hasErrors()) {
         	curvePointRepository.save(curvePoint);
-            model.addAttribute("curvepoint", curvePointRepository.findAll());
+            model.addAttribute("curvePoint", curvePointRepository.findAll());
             return "redirect:/curvePoint/list";
         }
         return "curvePoint/add";
@@ -44,7 +44,7 @@ public class CurveController {
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         CurvePoint curvePoint = curvePointRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
-        model.addAttribute("curvepoint", curvePoint);
+        model.addAttribute("curvePoint", curvePoint);
         return "curvePoint/update";
     }
 
@@ -55,7 +55,7 @@ public class CurveController {
         }
         curvePoint.setId(id);
         curvePointRepository.save(curvePoint);
-        model.addAttribute("curvepoint", curvePointRepository.findAll());
+        model.addAttribute("curvePoint", curvePointRepository.findAll());
         return "redirect:/curvePoint/list";
     }
 
@@ -63,7 +63,7 @@ public class CurveController {
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
     	CurvePoint curvePoint = curvePointRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
     	curvePointRepository.delete(curvePoint);
-        model.addAttribute("curvepoint", curvePointRepository.findAll());
+        model.addAttribute("curvePoint", curvePointRepository.findAll());
         return "redirect:/curvePoint/list";
     }
 }
