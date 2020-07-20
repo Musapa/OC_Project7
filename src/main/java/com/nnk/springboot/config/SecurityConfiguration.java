@@ -19,8 +19,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 
-	private final String USERS_QUERY = "SELECT username, password FROM user WHERE username=?";
-	private final String ROLES_QUERY = "SELECT role FROM user WHERE username=?";
+	private final String USERS_QUERY = "SELECT username, password, 1 FROM users WHERE username=?";
+	private final String ROLES_QUERY = "SELECT username, role FROM users WHERE username=?";
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -29,18 +29,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/").permitAll()
-			.antMatchers("/login").permitAll()
-			.antMatchers("/user/list").hasAuthority("ADMIN").anyRequest()
-			.authenticated().and().csrf().disable().formLogin()
-			.loginPage("/login").failureUrl("/error")
-			.defaultSuccessUrl("/")
-			.usernameParameter("username")
-			.passwordParameter("password")
-			.and().logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/");	
+	protected void configure(HttpSecurity http) throws Exception {		
+		 http.authorizeRequests()
+		 		.antMatchers("/").permitAll()
+		 		.antMatchers("/css/**").permitAll()
+		 		.antMatchers("/user/**").permitAll()
+		 		.antMatchers("/bidList/**", "/rating/**", "/ruleName/**", "/trade/**", "/curvePoint/**").hasAnyAuthority("ADMIN", "USER").anyRequest()
+		 		.authenticated().and().formLogin()  //login configuration
+		 		.defaultSuccessUrl("/bidList/list")
+		 		.and().logout()    //logout configuration
+		 		.logoutUrl("/app-logout")
+		 		.logoutSuccessUrl("/")
+		 		.and().exceptionHandling() //exception handling configuration
+		 		.accessDeniedPage("/app/error");
 	}
 }
