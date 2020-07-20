@@ -27,7 +27,7 @@ public class CurveController {
     }
 
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint bid) {
+    public String addCurveForm(CurvePoint bid) {
         return "curvePoint/add";
     }
 

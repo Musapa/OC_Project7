@@ -23,15 +23,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.nnk.springboot.repositories.BidListRepository;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
 @WithMockUser(username = "test@mail.com", roles = { "ADMIN" })
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 @AutoConfigureTestDatabase(replace = Replace.ANY)
-public class BidControllerTests {
+public class UserControllerTests {
 
 	private MockMvc mockMvc;
 
@@ -45,27 +43,27 @@ public class BidControllerTests {
 
 	@Test
 	public void testBid() throws Exception {
-		testAddBidForm();
+		testAddUserForm();
 		testAddValidateValid();
 		testAddValidateInvalid();
 		testHome();
 		testShowUpdateForm();
-		testUpdateBidValid();
-		testUpdateBidInvalid();
-		testDeleteBidValid();
+		testUpdateUserValid();
+		testUpdateUserInvalid();
+		testDeleteUser();
 		testHome();
 	}
 
 	private void testHome() throws Exception {
-		MvcResult result = mockMvc.perform(get("/bidList/list")).andExpect(view().name("bidList/list"))
+		MvcResult result = mockMvc.perform(get("/user/list")).andExpect(view().name("user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
 		String content = result.getResponse().getContentAsString();
 		System.out.println("Content" + content);
 	}
 
-	private void testAddBidForm() throws Exception {
-		MvcResult result = mockMvc.perform(get("/bidList/add")).andExpect(view().name("bidList/add"))
+	private void testAddUserForm() throws Exception {
+		MvcResult result = mockMvc.perform(get("/user/add")).andExpect(view().name("user/add"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
 		String content = result.getResponse().getContentAsString();
@@ -73,43 +71,44 @@ public class BidControllerTests {
 	}
 
 	private void testAddValidateValid() throws Exception {
-		mockMvc.perform(post("/bidList/validate").param("account", "test@mail.com").param("type", "EPC")
-				.param("bidQuantity", "5")).andExpect(view().name("redirect:/bidList/list"))
+		mockMvc.perform(post("/user/validate").param("fullname", "fullNameTest").param("username", "usernameTest")
+				.param("password", "2104").param("role", "ADMIN")).andExpect(view().name("redirect:/user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 		
-		mockMvc.perform(post("/bidList/validate").param("account", "test2@mail.com").param("type", "EPC2")
-				.param("bidQuantity", "10")).andExpect(view().name("redirect:/bidList/list"))
+		mockMvc.perform(post("/user/validate").param("fullname", "fullNameTest2").param("username", "usernameTest2")
+				.param("password", "2104").param("role", "USER")).andExpect(view().name("redirect:/user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
 	private void testAddValidateInvalid() throws Exception {
-		mockMvc.perform(post("/bidList/validate").param("account", "test@mail.com").param("type", "1234")
-				.param("bidQuantity", "INVALID")).andExpect(view().name("bidList/add")).andExpect(model().errorCount(1))
+		mockMvc.perform(post("/user/validate").param("fullname", "fullNameTest").param("username", "usernameTest")
+				.param("password", "").param("role", "ADMIN")).andExpect(view().name("user/add")).andExpect(model().errorCount(1))
 				.andExpect(status().isOk());
 	}
 
 	private void testShowUpdateForm() throws Exception {
-		MvcResult result = mockMvc.perform(get("/bidList/update/2")).andExpect(view().name("bidList/update"))
+		MvcResult result = mockMvc.perform(get("/user/update/2")).andExpect(view().name("user/update"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
 		String content = result.getResponse().getContentAsString();
 		System.out.println("Content" + content);
 	}
 
-	private void testUpdateBidValid() throws Exception {
-		mockMvc.perform(post("/bidList/update/2").param("account", "test2-UPDATE@mail.com").param("type", "EPC2-UPDATE")
-				.param("bidQuantity", "1")).andExpect(view().name("redirect:/bidList/list"))
+	private void testUpdateUserValid() throws Exception {
+		mockMvc.perform(post("/user/update/2").param("fullname", "UPDATEfullNameTest").param("username", "UPDATEusernameTest")
+				.param("password", "2104").param("role", "ADMIN")).andExpect(view().name("redirect:/user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
-	//question about status isOk and isFound ???????????????? ON valid AND invalid is different
-	private void testUpdateBidInvalid() throws Exception {
-		mockMvc.perform(post("/bidList/update/2").param("account", "test2-UPDATE@mail.com").param("type", "EPC2-UPDATE")
-				.param("bidQuantity", "INVALID")).andExpect(view().name("bidList/update"))
+
+	private void testUpdateUserInvalid() throws Exception {
+		mockMvc.perform(post("/user/update/2").param("fullname", "fullNameTest").param("username", "usernameTest")
+				.param("password", "").param("role", "ADMIN")).andExpect(view().name("user/update"))
 				.andExpect(model().errorCount(1)).andExpect(status().isOk());
 	}
 	
-	private void testDeleteBidValid() throws Exception {
-		mockMvc.perform(get("/bidList/delete/1")).andExpect(view().name("redirect:/bidList/list"))
+	private void testDeleteUser() throws Exception {
+		mockMvc.perform(get("/user/delete/1")).andExpect(view().name("redirect:/user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
+	
 }

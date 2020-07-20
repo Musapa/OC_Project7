@@ -27,7 +27,7 @@ public class TradeController {
     }
 
     @GetMapping("/trade/add")
-    public String addUser(Trade bid) {
+    public String addTradeForm(Trade bid) {
         return "trade/add";
     }
 
@@ -51,7 +51,7 @@ public class TradeController {
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "bidList/update";
+            return "trade/update";
         }
         trade.setTradeId(id);
         tradeRepository.save(trade);
