@@ -2,8 +2,9 @@ package com.nnk.springboot.controllers;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.BidListRepository;
 
 
 @Controller
 public class BidListController {
+	
+	private static final Logger log = LoggerFactory.getLogger(BidListController.class);
+	
     @Autowired
     private BidListRepository bidListRepository;
 
@@ -26,11 +29,13 @@ public class BidListController {
     public String home(Model model)
     {
         model.addAttribute("bidList", bidListRepository.findAll());
+        log.info("Get home bidList: " + bidListRepository.findAll().size());
         return "bidList/list";
     }
 
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid) {
+    	log.info("Get addBidForm");
         return "bidList/add";
     }
 
