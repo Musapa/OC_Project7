@@ -101,7 +101,7 @@ public class BidControllerTests {
 				.param("bidQuantity", "1")).andExpect(view().name("redirect:/bidList/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
-	//question about status isOk and isFound ???????????????? ON valid AND invalid is different
+
 	private void testUpdateBidInvalid() throws Exception {
 		mockMvc.perform(post("/bidList/update/2").param("account", "test2-UPDATE@mail.com").param("type", "EPC2-UPDATE")
 				.param("bidQuantity", "INVALID")).andExpect(view().name("bidList/update"))

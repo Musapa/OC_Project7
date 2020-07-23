@@ -44,8 +44,10 @@ public class BidListController {
         if (!result.hasErrors()) {
             bidListRepository.save(bid);
             model.addAttribute("bidList", bidListRepository.findAll());
+            log.info("Log bidList Validate: " + bid.getBid() + bid.getAccount());
             return "redirect:/bidList/list";
         }
+        log.error("Log bidList Validate error: " + result.getErrorCount());
         return "bidList/add";
     }
 
