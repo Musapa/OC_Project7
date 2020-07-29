@@ -18,18 +18,12 @@ public class User {
 	private Integer id;
 	@NotBlank(message = "Username is mandatory")
 	private String username;
-	@NotBlank(message = "Password is mandatory")
+	@NotBlank(message = "Password is mandatory") 
 	private String password;
 	@NotBlank(message = "FullName is mandatory")
 	private String fullname;
 	@NotBlank(message = "Role is mandatory")
 	private String role;
-
-	public User(String username, String password, String role) {
-		this.username = username;
-		this.password = password;
-		this.role = role;
-	}
 
 	public Integer getId() {
 		return id;
