@@ -1,7 +1,10 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -11,9 +14,14 @@ public class Trade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer tradeId;
 	
+	@NotBlank(message = "Account is mandatory")
 	private String account;
+	@NotBlank(message = "Type is mandatory")
 	private String type;
+    @NotNull
+    @DecimalMin("0.01")
 	private Double buyQuantity;
+	
 	private Double sellQuantity;
 	private Double buyPrice;
 	private Double sellPrice;
@@ -34,6 +42,11 @@ public class Trade {
 
 	public Trade() {
 
+	}
+	public Trade(String account, String type, Double buyQuantity) {
+		this.account = account;
+		this.type = type;
+		this.buyQuantity = buyQuantity;
 	}
 	
 	public Trade(String account, String type) {

@@ -42,7 +42,7 @@ public class TradeControllerTests {
 	}
 
 	@Test
-	public void testBid() throws Exception {
+	public void testTrade() throws Exception {
 		testAddTradeForm();
 		testAddValidateValid();
 		testAddValidateInvalid();

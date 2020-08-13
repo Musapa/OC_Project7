@@ -42,7 +42,7 @@ public class UserControllerTests {
 	}
 
 	@Test
-	public void testBid() throws Exception {
+	public void testUser() throws Exception {
 		testAddUserForm();
 		testAddValidateValid();
 		testAddValidateInvalid();
@@ -72,17 +72,17 @@ public class UserControllerTests {
 
 	private void testAddValidateValid() throws Exception {
 		mockMvc.perform(post("/user/validate").param("fullname", "fullNameTest").param("username", "usernameTest")
-				.param("password", "2104").param("role", "ADMIN")).andExpect(view().name("redirect:/user/list"))
+				.param("password", "Musapa1234@").param("role", "ADMIN")).andExpect(view().name("redirect:/user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 		
 		mockMvc.perform(post("/user/validate").param("fullname", "fullNameTest2").param("username", "usernameTest2")
-				.param("password", "2104").param("role", "USER")).andExpect(view().name("redirect:/user/list"))
+				.param("password", "Musapa1234@").param("role", "USER")).andExpect(view().name("redirect:/user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
 	private void testAddValidateInvalid() throws Exception {
 		mockMvc.perform(post("/user/validate").param("fullname", "fullNameTest").param("username", "usernameTest")
-				.param("password", "").param("role", "ADMIN")).andExpect(view().name("user/add")).andExpect(model().errorCount(1))
+				.param("password", "musapa1234@").param("role", "ADMIN")).andExpect(view().name("user/add")).andExpect(model().errorCount(1))
 				.andExpect(status().isOk());
 	}
 
@@ -96,13 +96,13 @@ public class UserControllerTests {
 
 	private void testUpdateUserValid() throws Exception {
 		mockMvc.perform(post("/user/update/2").param("fullname", "UPDATEfullNameTest").param("username", "UPDATEusernameTest")
-				.param("password", "2104").param("role", "ADMIN")).andExpect(view().name("redirect:/user/list"))
+				.param("password", "Musapa1234@").param("role", "ADMIN")).andExpect(view().name("redirect:/user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
 	private void testUpdateUserInvalid() throws Exception {
 		mockMvc.perform(post("/user/update/2").param("fullname", "fullNameTest").param("username", "usernameTest")
-				.param("password", "").param("role", "ADMIN")).andExpect(view().name("user/update"))
+				.param("password", "musapa1234@").param("role", "ADMIN")).andExpect(view().name("user/update"))
 				.andExpect(model().errorCount(1)).andExpect(status().isOk());
 	}
 	

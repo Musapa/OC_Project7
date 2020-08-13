@@ -8,8 +8,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Length;
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -18,7 +16,8 @@ public class User {
 	private Integer id;
 	@NotBlank(message = "Username is mandatory")
 	private String username;
-	@NotBlank(message = "Password is mandatory") 
+	@NotBlank(message = "Password is mandatory")
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$", message="Invalid password!")
 	private String password;
 	@NotBlank(message = "FullName is mandatory")
 	private String fullname;

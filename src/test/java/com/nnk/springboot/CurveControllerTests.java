@@ -42,7 +42,7 @@ public class CurveControllerTests {
 	}
 
 	@Test
-	public void testBid() throws Exception {
+	public void testCurve() throws Exception {
 		testAddCurveForm();
 		testAddValidateValid();
 		testAddValidateInvalid();

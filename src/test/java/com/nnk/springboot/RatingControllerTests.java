@@ -42,7 +42,7 @@ public class RatingControllerTests {
 	}
 
 	@Test
-	public void testBid() throws Exception {
+	public void testRating() throws Exception {
 		testAddRatingForm();
 		testAddValidateValid();
 		testAddValidateInvalid();

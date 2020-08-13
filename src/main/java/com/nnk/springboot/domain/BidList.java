@@ -1,15 +1,15 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Required;
+import java.sql.Timestamp;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import java.sql.Date;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bidlist")
@@ -24,6 +24,7 @@ public class BidList {
     @NotNull
     @DecimalMin("0.01")
 	private Double bidQuantity;
+    
 	private Double askQuantity;
 	private Double bid;
 	private Double ask;

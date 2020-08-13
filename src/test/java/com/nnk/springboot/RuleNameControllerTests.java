@@ -42,7 +42,7 @@ public class RuleNameControllerTests {
 	}
 
 	@Test
-	public void testBid() throws Exception {
+	public void testRuleName() throws Exception {
 		testAddRuleForm();
 		testAddValidateValid();
 		testAddValidateInvalid();
