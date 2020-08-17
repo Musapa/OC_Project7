@@ -66,7 +66,7 @@ public class TradeController {
 		}
 		trade.setTradeId(id);
 		tradeRepository.save(trade);
-		model.addAttribute("bidlist", tradeRepository.findAll());
+		model.addAttribute("trade", tradeRepository.findAll());
 		log.info("Log updateTrade: id:" + trade.getTradeId() + " account:" + trade.getAccount());
 		return "redirect:/trade/list";
 	}
