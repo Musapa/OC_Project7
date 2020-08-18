@@ -39,19 +39,7 @@ public class TradeControllerTests {
 	}
 
 	@Test
-	public void testTrade() throws Exception {
-		testAddTradeForm();
-		testAddValidateValid();
-		testAddValidateInvalid();
-		testHome();
-		testShowUpdateForm();
-		testUpdateTradeValid();
-		testUpdateTradeInvalid();
-		testDeleteTrade();
-		testHome();
-	}
-	
-	private void testHome() throws Exception {
+	public void testHome() throws Exception {
 		MvcResult result = mockMvc.perform(get("/trade/list")).andExpect(view().name("trade/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -59,7 +47,8 @@ public class TradeControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testAddTradeForm() throws Exception {
+	@Test
+	public void testAddTradeForm() throws Exception {
 		MvcResult result = mockMvc.perform(get("/trade/add")).andExpect(view().name("trade/add"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -67,7 +56,8 @@ public class TradeControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testAddValidateValid() throws Exception {
+	@Test
+	public void testAddValidateValid() throws Exception {
 		mockMvc.perform(post("/trade/validate").param("account", "testAccount").param("type", "testType")
 				.param("buyQuantity", "1")).andExpect(view().name("redirect:/trade/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
@@ -77,13 +67,15 @@ public class TradeControllerTests {
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
-	private void testAddValidateInvalid() throws Exception {
+	@Test
+	public void testAddValidateInvalid() throws Exception {
 		mockMvc.perform(post("/trade/validate").param("account", "testAccount").param("type", "testType")
 				.param("buyQuantity", "INVALID")).andExpect(view().name("trade/add")).andExpect(model().errorCount(1))
 				.andExpect(status().isOk());
 	}
 
-	private void testShowUpdateForm() throws Exception {
+	@Test
+	public void testShowUpdateForm() throws Exception {
 		MvcResult result = mockMvc.perform(get("/trade/update/2")).andExpect(view().name("trade/update"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -91,19 +83,22 @@ public class TradeControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testUpdateTradeValid() throws Exception {
+	@Test
+	public void testUpdateTradeValid() throws Exception {
 		mockMvc.perform(post("/trade/update/2").param("account", "UPDATEtestAccount").param("type", "UPDATEtestType")
 				.param("buyQuantity", "1")).andExpect(view().name("redirect:/trade/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
-	private void testUpdateTradeInvalid() throws Exception {
+	@Test
+	public void testUpdateTradeInvalid() throws Exception {
 		mockMvc.perform(post("/trade/update/2").param("account", "UPDATEtestAccount").param("type", "UPDATEtestType")
 				.param("buyQuantity", "INVALID")).andExpect(view().name("trade/update"))
 				.andExpect(model().errorCount(1)).andExpect(status().isOk());
 	}
 	
-	private void testDeleteTrade() throws Exception {
+	@Test
+	public void testDeleteTrade() throws Exception {
 		mockMvc.perform(get("/trade/delete/1")).andExpect(view().name("redirect:/trade/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}

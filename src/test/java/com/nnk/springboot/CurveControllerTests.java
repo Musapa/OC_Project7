@@ -39,19 +39,7 @@ public class CurveControllerTests {
 	}
 
 	@Test
-	public void testCurve() throws Exception {
-		testAddCurveForm();
-		testAddValidateValid();
-		testAddValidateInvalid();
-		testHome();
-		testShowUpdateForm();
-		testUpdateCurveValid();
-		testUpdateCurveInvalid();
-		testDeleteCurve();
-		testHome();
-	}
-
-	private void testHome() throws Exception {
+	public void testHome() throws Exception {
 		MvcResult result = mockMvc.perform(get("/curvePoint/list")).andExpect(view().name("curvePoint/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -59,7 +47,8 @@ public class CurveControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testAddCurveForm() throws Exception {
+	@Test
+	public void testAddCurveForm() throws Exception {
 		MvcResult result = mockMvc.perform(get("/curvePoint/add")).andExpect(view().name("curvePoint/add"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -67,7 +56,8 @@ public class CurveControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testAddValidateValid() throws Exception {
+	@Test
+	public void testAddValidateValid() throws Exception {
 		mockMvc.perform(post("/curvePoint/validate").param("curveId", "1").param("term", "10").param("value", "55.5"))
 				.andExpect(view().name("redirect:/curvePoint/list")).andExpect(model().errorCount(0))
 				.andExpect(status().isFound());
@@ -77,13 +67,15 @@ public class CurveControllerTests {
 				.andExpect(status().isFound());
 	}
 
-	private void testAddValidateInvalid() throws Exception {
+	@Test
+	public void testAddValidateInvalid() throws Exception {
 		mockMvc.perform(
 				post("/curvePoint/validate").param("curveId", "1").param("term", "20").param("value", "INVALID"))
 				.andExpect(view().name("curvePoint/add")).andExpect(model().errorCount(1)).andExpect(status().isOk());
 	}
 
-	private void testShowUpdateForm() throws Exception {
+	@Test
+	public void testShowUpdateForm() throws Exception {
 		MvcResult result = mockMvc.perform(get("/curvePoint/update/2")).andExpect(view().name("curvePoint/update"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -91,21 +83,24 @@ public class CurveControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testUpdateCurveValid() throws Exception {
+	@Test
+	public void testUpdateCurveValid() throws Exception {
 		mockMvc.perform(
 				post("/curvePoint/update/2").param("curveId", "2").param("term", "5555").param("value", "155.5"))
 				.andExpect(view().name("redirect:/curvePoint/list")).andExpect(model().errorCount(0))
 				.andExpect(status().isFound());
 	}
 
-	private void testUpdateCurveInvalid() throws Exception {
+	@Test
+	public void testUpdateCurveInvalid() throws Exception {
 		mockMvc.perform(
 				post("/curvePoint/update/2").param("curveId", "2").param("term", "5555").param("value", "INVALID"))
 				.andExpect(view().name("curvePoint/update")).andExpect(model().errorCount(1))
 				.andExpect(status().isOk());
 	}
 
-	private void testDeleteCurve() throws Exception {
+	@Test
+	public void testDeleteCurve() throws Exception {
 		mockMvc.perform(get("/curvePoint/delete/1")).andExpect(view().name("redirect:/curvePoint/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}

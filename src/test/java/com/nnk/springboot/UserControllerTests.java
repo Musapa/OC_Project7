@@ -39,19 +39,7 @@ public class UserControllerTests {
 	}
 
 	@Test
-	public void testUser() throws Exception {
-		testAddUserForm();
-		testAddValidateValid();
-		testAddValidateInvalid();
-		testHome();
-		testShowUpdateForm();
-		testUpdateUserValid();
-		testUpdateUserInvalid();
-		testDeleteUser();
-		testHome();
-	}
-
-	private void testHome() throws Exception {
+	public void testHome() throws Exception {
 		MvcResult result = mockMvc.perform(get("/user/list")).andExpect(view().name("user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -59,7 +47,8 @@ public class UserControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testAddUserForm() throws Exception {
+	@Test
+	public void testAddUserForm() throws Exception {
 		MvcResult result = mockMvc.perform(get("/user/add")).andExpect(view().name("user/add"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -67,7 +56,8 @@ public class UserControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testAddValidateValid() throws Exception {
+	@Test
+	public void testAddValidateValid() throws Exception {
 		mockMvc.perform(post("/user/validate").param("fullname", "fullNameTest").param("username", "usernameTest")
 				.param("password", "Musapa1234@").param("role", "ADMIN")).andExpect(view().name("redirect:/user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
@@ -77,13 +67,15 @@ public class UserControllerTests {
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
-	private void testAddValidateInvalid() throws Exception {
+	@Test
+	public void testAddValidateInvalid() throws Exception {
 		mockMvc.perform(post("/user/validate").param("fullname", "fullNameTest").param("username", "usernameTest")
 				.param("password", "musapa1234@").param("role", "ADMIN")).andExpect(view().name("user/add")).andExpect(model().errorCount(1))
 				.andExpect(status().isOk());
 	}
 
-	private void testShowUpdateForm() throws Exception {
+	@Test
+	public void testShowUpdateForm() throws Exception {
 		MvcResult result = mockMvc.perform(get("/user/update/2")).andExpect(view().name("user/update"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -91,19 +83,22 @@ public class UserControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testUpdateUserValid() throws Exception {
+	@Test
+	public void testUpdateUserValid() throws Exception {
 		mockMvc.perform(post("/user/update/2").param("fullname", "UPDATEfullNameTest").param("username", "UPDATEusernameTest")
 				.param("password", "Musapa1234@").param("role", "ADMIN")).andExpect(view().name("redirect:/user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
-	private void testUpdateUserInvalid() throws Exception {
+	@Test
+	public void testUpdateUserInvalid() throws Exception {
 		mockMvc.perform(post("/user/update/2").param("fullname", "fullNameTest").param("username", "usernameTest")
 				.param("password", "musapa1234@").param("role", "ADMIN")).andExpect(view().name("user/update"))
 				.andExpect(model().errorCount(1)).andExpect(status().isOk());
 	}
-	
-	private void testDeleteUser() throws Exception {
+
+	@Test
+	public void testDeleteUser() throws Exception {
 		mockMvc.perform(get("/user/delete/1")).andExpect(view().name("redirect:/user/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}

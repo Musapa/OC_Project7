@@ -39,19 +39,7 @@ public class RuleNameControllerTests {
 	}
 
 	@Test
-	public void testRuleName() throws Exception {
-		testAddRuleForm();
-		testAddValidateValid();
-		testAddValidateInvalid();
-		testHome();
-		testShowUpdateForm();
-		testUpdateRuleValid();
-		testUpdateRuleInvalid();
-		testDeleteRule();
-		testHome();
-	}
-	
-	private void testHome() throws Exception {
+	public void testHome() throws Exception {
 		MvcResult result = mockMvc.perform(get("/ruleName/list")).andExpect(view().name("ruleName/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -59,7 +47,8 @@ public class RuleNameControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testAddRuleForm() throws Exception {
+	@Test
+	public void testAddRuleForm() throws Exception {
 		MvcResult result = mockMvc.perform(get("/ruleName/add")).andExpect(view().name("ruleName/add"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -67,7 +56,8 @@ public class RuleNameControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testAddValidateValid() throws Exception {
+	@Test
+	public void testAddValidateValid() throws Exception {
 		mockMvc.perform(post("/ruleName/validate").param("name", "testName").param("description", "testDescription")
 				.param("json", "testJson").param("template", "testTemplate").param("sqlStr", "testSqlStr").param("sqlPart", "testSqlPart")).andExpect(view().name("redirect:/ruleName/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
@@ -77,13 +67,15 @@ public class RuleNameControllerTests {
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
-	private void testAddValidateInvalid() throws Exception {
+	@Test
+	public void testAddValidateInvalid() throws Exception {
 		mockMvc.perform(post("/ruleName/validate").param("name", "").param("description", "testDescription")
 				.param("json", "testJson").param("template", "testTemplate").param("sqlStr", "testSqlStr").param("sqlPart", "testSqlPart")).andExpect(view().name("ruleName/add")).andExpect(model().errorCount(1))
 				.andExpect(status().isOk());
 	}
 
-	private void testShowUpdateForm() throws Exception {
+	@Test
+	public void testShowUpdateForm() throws Exception {
 		MvcResult result = mockMvc.perform(get("/ruleName/update/2")).andExpect(view().name("ruleName/update"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -91,19 +83,22 @@ public class RuleNameControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testUpdateRuleValid() throws Exception {
+	@Test
+	public void testUpdateRuleValid() throws Exception {
 		mockMvc.perform(post("/ruleName/update/2").param("name", "UPDATEtestName").param("description", "UPDATEtestDescription")
 				.param("json", "UPDATEtestJson").param("template", "UPDATEtestTemplate").param("sqlStr", "UPDATEtestSqlStr").param("sqlPart", "UPDATEtestSqlPart")).andExpect(view().name("redirect:/ruleName/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
-	private void testUpdateRuleInvalid() throws Exception {
+	@Test
+	public void testUpdateRuleInvalid() throws Exception {
 		mockMvc.perform(post("/ruleName/update/2").param("name", "").param("description", "UPDATEtestDescription")
 				.param("json", "UPDATEtestJson").param("template", "UPDATEtestTemplate").param("sqlStr", "UPDATEtestSqlStr").param("sqlPart", "UPDATEtestSqlPart")).andExpect(view().name("ruleName/update"))
 				.andExpect(model().errorCount(1)).andExpect(status().isOk());
 	}
 	
-	private void testDeleteRule() throws Exception {
+	@Test
+	public void testDeleteRule() throws Exception {
 		mockMvc.perform(get("/ruleName/delete/1")).andExpect(view().name("redirect:/ruleName/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}

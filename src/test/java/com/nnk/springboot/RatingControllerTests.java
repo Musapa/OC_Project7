@@ -37,21 +37,9 @@ public class RatingControllerTests {
 	public void setupMockmvc() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webContext).build();
 	}
-
-	@Test
-	public void testRating() throws Exception {
-		testAddRatingForm();
-		testAddValidateValid();
-		testAddValidateInvalid();
-		testHome();
-		testShowUpdateForm();
-		testUpdateRatingValid();
-		testUpdateRatingInvalid();
-		testDeleteRating();
-		testHome();
-	}
 	
-	private void testHome() throws Exception {
+	@Test
+	public void testHome() throws Exception {
 		MvcResult result = mockMvc.perform(get("/rating/list")).andExpect(view().name("rating/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -59,7 +47,8 @@ public class RatingControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testAddRatingForm() throws Exception {
+	@Test
+	public void testAddRatingForm() throws Exception {
 		MvcResult result = mockMvc.perform(get("/rating/add")).andExpect(view().name("rating/add"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -67,7 +56,8 @@ public class RatingControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testAddValidateValid() throws Exception {
+	@Test
+	public void testAddValidateValid() throws Exception {
 		mockMvc.perform(post("/rating/validate").param("moodysRating", "testMoody").param("sandPRating", "testSand")
 				.param("fitchRating", "fitchTest").param("orderNumber", "1")).andExpect(view().name("redirect:/rating/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
@@ -77,13 +67,15 @@ public class RatingControllerTests {
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
-	private void testAddValidateInvalid() throws Exception {
+	@Test
+	public void testAddValidateInvalid() throws Exception {
 		mockMvc.perform(post("/rating/validate").param("moodysRating", "testMoody").param("sandPRating", "testSand")
 				.param("fitchRating", "fitchTest").param("orderNumber", "INVALID")).andExpect(view().name("rating/add")).andExpect(model().errorCount(1))
 				.andExpect(status().isOk());
 	}
 
-	private void testShowUpdateForm() throws Exception {
+	@Test
+	public void testShowUpdateForm() throws Exception {
 		MvcResult result = mockMvc.perform(get("/rating/update/2")).andExpect(view().name("rating/update"))
 				.andExpect(model().errorCount(0)).andExpect(status().isOk()).andReturn();
 
@@ -91,19 +83,22 @@ public class RatingControllerTests {
 		System.out.println("Content" + content);
 	}
 
-	private void testUpdateRatingValid() throws Exception {
+	@Test
+	public void testUpdateRatingValid() throws Exception {
 		mockMvc.perform(post("/rating/update/2").param("moodysRating", "UpdateTestMoody2").param("sandPRating", "UpdateTestSand2")
 				.param("fitchRating", "UpdateTestFitch2").param("orderNumber", "2")).andExpect(view().name("redirect:/rating/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
 
-	private void testUpdateRatingInvalid() throws Exception {
+	@Test
+	public void testUpdateRatingInvalid() throws Exception {
 		mockMvc.perform(post("/rating/update/2").param("moodysRating", "UpdateTestMoody2").param("sandPRating", "UpdateTestSand2")
 				.param("fitchRating", "UpdateTestFitch2").param("orderNumber", "INVALID")).andExpect(view().name("rating/update"))
 				.andExpect(model().errorCount(1)).andExpect(status().isOk());
 	}
 	
-	private void testDeleteRating() throws Exception {
+	@Test
+	public void testDeleteRating() throws Exception {
 		mockMvc.perform(get("/rating/delete/1")).andExpect(view().name("redirect:/rating/list"))
 				.andExpect(model().errorCount(0)).andExpect(status().isFound());
 	}
