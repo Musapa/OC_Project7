@@ -41,7 +41,6 @@ public class BidListController {
 	public String validate(@Valid BidList bid, BindingResult result, Model model) {
 		if (!result.hasErrors()) {
 			bidListRepository.save(bid);
-			model.addAttribute("bidList", bidListRepository.findAll());
 			log.info("Log bidList Validate: id:" + bid.getBidListId() + " account:" + bid.getAccount());
 			return "redirect:/bidList/list";
 		}
@@ -66,7 +65,6 @@ public class BidListController {
 		}
 		bidList.setBidListId(id);
 		bidListRepository.save(bidList);
-		model.addAttribute("bidList", bidListRepository.findAll());
 		log.info("Log updateBid: id:" + bidList.getBidListId() + " account:" + bidList.getAccount());
 		return "redirect:/bidList/list";
 	}
@@ -76,7 +74,6 @@ public class BidListController {
 		BidList bidList = bidListRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid bidList Id:" + id));
 		bidListRepository.delete(bidList);
-		model.addAttribute("bidList", bidListRepository.findAll());
 		log.info("Log deleteBid: id:" + bidList.getBidListId() + " account:" + bidList.getAccount());
 		return "redirect:/bidList/list";
 	}

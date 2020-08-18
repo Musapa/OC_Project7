@@ -41,7 +41,6 @@ public class TradeController {
 	public String validate(@Valid Trade trade, BindingResult result, Model model) {
 		if (!result.hasErrors()) {
 			tradeRepository.save(trade);
-			model.addAttribute("trade", tradeRepository.findAll());
 			log.info("Log trade Validate: id:" + trade.getTradeId() + " account:" + trade.getAccount());
 			return "redirect:/trade/list";
 		}
@@ -66,7 +65,6 @@ public class TradeController {
 		}
 		trade.setTradeId(id);
 		tradeRepository.save(trade);
-		model.addAttribute("trade", tradeRepository.findAll());
 		log.info("Log updateTrade: id:" + trade.getTradeId() + " account:" + trade.getAccount());
 		return "redirect:/trade/list";
 	}
@@ -76,7 +74,6 @@ public class TradeController {
 		Trade trade = tradeRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
 		tradeRepository.delete(trade);
-		model.addAttribute("trade", tradeRepository.findAll());
 		log.info("Log deleteBid: id:" + trade.getTradeId() + " account:" + trade.getAccount());
 		return "redirect:/trade/list";
 	}

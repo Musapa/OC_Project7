@@ -41,7 +41,6 @@ public class RuleNameController {
 	public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
 		if (!result.hasErrors()) {
 			ruleNameRepository.save(ruleName);
-			model.addAttribute("ruleName", ruleNameRepository.findAll());
 			log.info("Log ruleName Validate: id:" + ruleName.getId() + " name:" + ruleName.getName());
 			return "redirect:/ruleName/list";
 		}
@@ -67,7 +66,6 @@ public class RuleNameController {
 		}
 		ruleName.setId(id);
 		ruleNameRepository.save(ruleName);
-		model.addAttribute("ruleName", ruleNameRepository.findAll());
 		log.info("Log updateRuleName: id:" + ruleName.getId() + " name:" + ruleName.getName());
 		return "redirect:/ruleName/list";
 	}
@@ -77,7 +75,6 @@ public class RuleNameController {
 		RuleName ruleName = ruleNameRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));
 		ruleNameRepository.delete(ruleName);
-		model.addAttribute("ruleName", ruleNameRepository.findAll());
 		log.info("Log deleteRuleName: id:" + ruleName.getId() + " name:" + ruleName.getName());
 		return "redirect:/ruleName/list";
 	}

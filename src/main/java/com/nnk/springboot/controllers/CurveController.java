@@ -41,7 +41,6 @@ public class CurveController {
 	public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
 		if (!result.hasErrors()) {
 			curvePointRepository.save(curvePoint);
-			model.addAttribute("curvePoint", curvePointRepository.findAll());
 			log.info("Log curvePoint Validate: id:" + curvePoint.getId() + " value:" + curvePoint.getValue());
 			return "redirect:/curvePoint/list";
 		}
@@ -67,7 +66,6 @@ public class CurveController {
 		}
 		curvePoint.setId(id);
 		curvePointRepository.save(curvePoint);
-		model.addAttribute("curvePoint", curvePointRepository.findAll());
 		log.info("Log updateCurvePoint: id:" + curvePoint.getId() + " value:" + curvePoint.getValue());
 		return "redirect:/curvePoint/list";
 	}
@@ -77,7 +75,6 @@ public class CurveController {
 		CurvePoint curvePoint = curvePointRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
 		curvePointRepository.delete(curvePoint);
-		model.addAttribute("curvePoint", curvePointRepository.findAll());
 		log.info("Log deleteCurvePoint: id:" + curvePoint.getId() + " value:" + curvePoint.getValue());
 		return "redirect:/curvePoint/list";
 	}
